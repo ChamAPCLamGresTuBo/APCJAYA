@@ -1,0 +1,90 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Form Developer & Perumahan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #f0f0f0, #ffffff);
+      padding: 40px 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 700px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    input, textarea, button {
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+    button {
+      background-color: #3498db;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #2980b9;
+    }
+    .success-message {
+      text-align: center;
+      color: green;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>📋 Input Developer & Perumahan</h1>
+  <form id="dataForm">
+    <input type="text" name="developer" placeholder="Nama Developer" required />
+    <input type="text" name="perumahan" placeholder="Nama Perumahan" required />
+    <input type="text" name="pemilik" placeholder="Nama Pemilik No HP" required />
+    <input type="tel" name="nohp" placeholder="Nomor HP (08xxxx)" required />
+    <input type="text" name="kerjasama" placeholder="Status Kerja Sama (Ya/Tidak)" required />
+    <textarea name="keterangan" placeholder="Keterangan Tambahan" rows="3"></textarea>
+    <button type="submit">Kirim</button>
+  </form>
+  <div class="success-message" id="successMessage"></div>
+</div>
+
+<script>
+const scriptURL = 'SCRIPT_URL_GOES_HERE'; // Ganti nanti dengan URL script Google Apps Script kamu
+const form = document.getElementById('dataForm');
+const successMessage = document.getElementById('successMessage');
+
+form.addEventListener('submit', e => {
+  e.preventDefault();
+  const data = new FormData(form);
+  fetch(scriptURL, { method: 'POST', body: data })
+    .then(response => {
+      successMessage.textContent = "✅ Data berhasil dikirim!";
+      form.reset();
+    })
+    .catch(error => {
+      successMessage.textContent = "❌ Gagal mengirim data.";
+    });
+});
+</script>
+
+</body>
+</html>
